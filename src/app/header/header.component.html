@@ -31,18 +31,15 @@
       </ul>
       <div class="nav-item">
         <a
-          id="register"
+          #register
           class="btn neon_border view_collapsed"
           routerLink="/register"
           >Register</a
         >
-        <a id="login" class="btn neon_border view_collapsed" routerLink="/login"
+        <a #login class="btn neon_border view_collapsed" routerLink="/login"
           >Login</a
         >
-        <a
-          id="logOut"
-          class="btn neon_filled view_collapsed"
-          onclick="logOutUser()"
+        <a #logOut class="btn neon_filled view_collapsed" (click)="logOutUser()"
           >Log out</a
         >
       </div>

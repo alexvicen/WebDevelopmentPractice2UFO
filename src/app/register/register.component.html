@@ -1,0 +1,44 @@
+<div id="dialog" title="Prueba"></div>
+<main class="form-signin w-100 m-auto" id="registerForm">
+  <form>
+    <h1 class="h3 mb-3 fw-normal neon_text">Please register</h1>
+    <div class="form-floating neon_text" id="userNameDiv">
+      <input
+        type="userName"
+        class="form-control"
+        id="userName"
+        placeholder="UserName"
+      />
+      <label class="form-label" for="floatingInput">User name</label>
+    </div>
+    <div class="form-floating neon_text" id="emailDiv">
+      <input type="email" class="form-control" id="email" placeholder="Email" />
+      <label class="form-label" for="floatingInput">Email</label>
+    </div>
+    <div class="form-floating neon_text" id="passwordDiv">
+      <input
+        type="password"
+        class="form-control"
+        id="password"
+        placeholder="Password"
+      />
+      <label class="form-label" for="floatingPassword">Password</label>
+    </div>
+    <div class="form-floating neon_text" id="repeatPasswordDiv">
+      <input
+        type="password"
+        class="form-control"
+        id="repeatPassword"
+        placeholder="Repeat Password"
+      />
+      <label class="form-label" for="floatingPassword">Repeat Password</label>
+    </div>
+    <button
+      class="w-100 btn neon_filled"
+      type="button"
+      onclick="registerUser()"
+    >
+      Sign in
+    </button>
+  </form>
+</main>

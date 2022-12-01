@@ -2,7 +2,8 @@ import {
   Component,
   ViewChild,
   AfterViewInit,
-  ElementRef, OnInit
+  ElementRef,
+  OnInit
 } from '@angular/core';
 
 @Component({

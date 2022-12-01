@@ -1,26 +1,26 @@
-<div id="dialog" title="Prueba"></div>
-<main class="form-signin w-100 m-auto" id="registerForm">
+<div #dialog title="Prueba"></div>
+<main #registerForm class="form-signin w-100 m-auto">
   <form>
     <h1 class="h3 mb-3 fw-normal neon_text">Please login</h1>
     <div class="form-floating neon_text">
       <input
+        #userName
         type="userName"
         class="form-control"
-        id="userName"
         placeholder="UserName"
       />
       <label class="form-label" for="floatingInput">User name</label>
     </div>
     <div class="form-floating neon_text">
       <input
+        #password
         type="password"
         class="form-control"
-        id="password"
         placeholder="Password"
       />
       <label class="form-label" for="floatingPassword">Password</label>
     </div>
-    <button class="w-100 btn neon_filled" type="button" onclick="loginUser()">
+    <button class="w-100 btn neon_filled" type="button" (click)="loginUser()">
       Sign in
     </button>
   </form>

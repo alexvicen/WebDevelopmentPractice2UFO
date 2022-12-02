@@ -18,6 +18,7 @@ import { RecordsComponent } from './records/records.component';
 import { RegisterComponent } from './register/register.component';
 import { DialogComponent } from './dialog/dialog.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
 @NgModule({
   declarations: [
     AppComponent,

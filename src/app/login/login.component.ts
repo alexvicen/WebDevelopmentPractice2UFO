@@ -3,7 +3,7 @@ import { DialogData } from './../dialog/dialogData';
 import { DialogComponent } from './../dialog/dialog.component';
 import { SibligsService } from '../services/siblingsComponentService';
 
-import { Component, ViewChild, ElementRef, Output, EventEmitter } from '@angular/core';
+import { Component, ViewChild, ElementRef } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { MatDialog } from '@angular/material/dialog';
 

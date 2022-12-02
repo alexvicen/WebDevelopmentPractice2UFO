@@ -1,5 +1,11 @@
-import { Component, ViewChild, ElementRef, } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+
+import { DialogData } from './../dialog/dialogData';
+import { DialogComponent } from './../dialog/dialog.component';
+import { SibligsService } from '../services/siblingsComponentService';
+
+import { Component, ViewChild, ElementRef, Output, EventEmitter } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-login',
@@ -8,11 +14,11 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 })
 export class LoginComponent {
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private dialog: MatDialog, private siblingService: SibligsService) { }
+
 
   @ViewChild('userName', { static: true }) userName!: ElementRef;
   @ViewChild('password', { static: true }) password!: ElementRef;
-  @ViewChild('dialog', { static: true }) dialog!: ElementRef;
   @ViewChild('registerForm', { static: true }) registerForm!: ElementRef;
 
   loginUser() {
@@ -22,6 +28,7 @@ export class LoginComponent {
         next: (next) => {
           localStorage["authorization"] = next;
           localStorage["userName"] = this.userName.nativeElement.value;
+          this.siblingService.setData(true);
           history.back();
         },
       });
@@ -50,31 +57,9 @@ export class LoginComponent {
       divTarget.nativeElement.addClass("neon_text_error");
     }
 
-    this.dialog.nativeElement.classList.add("ui-dialog-titlebar");
-    this.dialog.nativeElement.classList.add("ui-widget-header");
-    this.dialog.nativeElement.classList.add("ui-corner-all");
-    this.dialog.nativeElement.classList.add("ui-helper-clearfix");
-    this.dialog.nativeElement.classList.add("container_neon_border");
-    this.dialog.nativeElement.classList.add("neon_text");
-    this.dialog.nativeElement.append('<p #message class="neon_text text-center">' + messageText + "</p>");
-    this.dialog.nativeElement
-      .dialog({
-        title: "Error",
-        modal: true,
-        position: {
-          my: "left",
-          at: "right",
-          of: this.registerForm,
-        },
-      })
-      .prev(".ui-dialog-titlebar")
-      .css("background", "rgb(152, 246, 255)");
-
-    this.dialog.nativeElement.on("dialogclose", function (event: any) {
-      document.querySelector('#message')?.remove();
-      if (tarjetInput != undefined) {
-        tarjetInput.nativeElement.focus();
-      }
+    const dialog = this.dialog.open(DialogComponent, { data: new DialogData(messageText) })
+    dialog.afterClosed().subscribe(art => {
+      tarjetInput?.nativeElement.focus();
     });
   }
 

@@ -5,13 +5,15 @@ import {
   ElementRef,
   OnInit
 } from '@angular/core';
-
+import { SibligsService } from '../services/siblingsComponentService';
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.css']
 })
 export class HeaderComponent implements OnInit, AfterViewInit {
+
+  constructor(private siblingsService: SibligsService) { }
 
   authorization: String | undefined
 
@@ -20,8 +22,9 @@ export class HeaderComponent implements OnInit, AfterViewInit {
   @ViewChild('logOut', { static: true }) logOut!: ElementRef;
 
   ngOnInit(): void {
-    this.authorization = localStorage["authorization"] || undefined;
-
+    this.siblingsService.currentData.subscribe(data => {
+      this.isLogged()
+    })
   }
   ngAfterViewInit() {
     this.isLogged()
@@ -35,6 +38,7 @@ export class HeaderComponent implements OnInit, AfterViewInit {
   }
 
   isLogged() {
+    this.authorization = localStorage["authorization"] || undefined;
     if (this.authorization != undefined) {
       this.register.nativeElement.style.visibility = "hidden";
       this.login.nativeElement.style.visibility = "hidden";

@@ -7,7 +7,7 @@
 body {
   width: 100%;
   overflow: hidden;
-  background: url("../assets/space.jpg");
+  background: url("assets/space.jpg");
   background-size: cover;
 }
 
@@ -114,4 +114,17 @@ body {
 .neon_text:focus {
   color: #fff;
   text-shadow: 0 0 0.8em hsl(0 0% 100% / 0.3), 0 0 0.45em currentColor;
+}
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+mat-dialog-container {
+  color: var(--clr-neon) !important;
+  border: var(--clr-neon) 3px solid;
+  background-color: transparent !important;
+  border-radius: 0.25em;
+  text-shadow: 0 0 0.125em hsl(0 0% 100% / 0.3), 0 0 0.45em currentColor !important;
+  box-shadow: inset 0 0 0.5em 0 var(--clr-neon), 0 0 0.5em 0 var(--clr-neon);
+  transition: all 0.5s;
 }

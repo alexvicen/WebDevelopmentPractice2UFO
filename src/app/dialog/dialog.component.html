@@ -1,0 +1,22 @@
+<div>
+  <h1 mat-dialog-title>Error</h1>
+  <div mat-dialog-content>
+    <div
+      style="
+        display: flex;
+        flex-direction: column;
+        margin: 1rem auto;
+        max-width: 600px;
+        padding: 1rem;
+      "
+    >
+      <p>{{ data.message }}</p>
+    </div>
+  </div>
+  <div mat-dialog-actions>
+    <button mat-button (click)="cancel()">Cancelar</button>
+    <button mat-button [mat-dialog-close]="true" cdkFocusInitial>
+      Confirmar
+    </button>
+  </div>
+</div>

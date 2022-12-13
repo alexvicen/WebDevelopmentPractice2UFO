@@ -44,13 +44,13 @@ export class RecordsComponent implements OnInit {
   recordsTreatment(error: any) {
     switch (error.status) {
       case 401:
-        this.dialog.open(DialogComponent, { data: new DialogData("no valid token") })
+        this.dialog.open(DialogComponent, { data: new DialogData("no valid token", undefined) })
         break;
       case 500:
-        this.dialog.open(DialogComponent, { data: new DialogData("Server error") })
+        this.dialog.open(DialogComponent, { data: new DialogData("Server error", undefined) })
         break;
       default:
-        this.dialog.open(DialogComponent, { data: new DialogData("Unknown error") })
+        this.dialog.open(DialogComponent, { data: new DialogData("Unknown error", undefined) })
         break;
     }
   }

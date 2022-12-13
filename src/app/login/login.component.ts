@@ -6,6 +6,7 @@ import { SibligsService } from '../services/siblingsComponentService';
 import { Component, ViewChild, ElementRef } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { MatDialog } from '@angular/material/dialog';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -14,7 +15,7 @@ import { MatDialog } from '@angular/material/dialog';
 })
 export class LoginComponent {
 
-  constructor(private http: HttpClient, private dialog: MatDialog, private siblingService: SibligsService) { }
+  constructor(private router: Router, private http: HttpClient, private dialog: MatDialog, private siblingService: SibligsService) { }
 
 
   @ViewChild('userName', { static: true }) userName!: ElementRef;
@@ -29,7 +30,7 @@ export class LoginComponent {
           localStorage["authorization"] = next;
           localStorage["userName"] = this.userName.nativeElement.value;
           this.siblingService.setData(true);
-          history.back();
+          this.router.navigate(['/game']);
         },
       });
   }
@@ -52,12 +53,7 @@ export class LoginComponent {
   }
 
   showErrorDialog(messageText: String, divTarget?: ElementRef, tarjetInput?: ElementRef) {
-    if (divTarget != undefined) {
-      divTarget.nativeElement.removeClass("neon_text");
-      divTarget.nativeElement.addClass("neon_text_error");
-    }
-
-    const dialog = this.dialog.open(DialogComponent, { data: new DialogData(messageText) })
+    const dialog = this.dialog.open(DialogComponent, { data: new DialogData(messageText, undefined) })
     dialog.afterClosed().subscribe(art => {
       tarjetInput?.nativeElement.focus();
     });

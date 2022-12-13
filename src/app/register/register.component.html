@@ -1,25 +1,26 @@
-<div id="dialog" title="Prueba"></div>
-<main class="form-signin w-100 m-auto" id="registerForm">
+<div #dialog title="Prueba"></div>
+<main class="form-signin w-100 m-auto" #registerForm>
   <form>
     <h1 class="h3 mb-3 fw-normal neon_text">Please register</h1>
-    <div class="form-floating neon_text" id="userNameDiv">
+    <div #userNameDiv class="form-floating neon_text">
       <input
         type="userName"
         class="form-control"
-        id="userName"
+        #userName
         placeholder="UserName"
+        (focusout)="focusout()"
       />
       <label class="form-label" for="floatingInput">User name</label>
     </div>
     <div class="form-floating neon_text" id="emailDiv">
-      <input type="email" class="form-control" id="email" placeholder="Email" />
+      <input type="email" class="form-control" #email placeholder="Email" />
       <label class="form-label" for="floatingInput">Email</label>
     </div>
     <div class="form-floating neon_text" id="passwordDiv">
       <input
         type="password"
         class="form-control"
-        id="password"
+        #password
         placeholder="Password"
       />
       <label class="form-label" for="floatingPassword">Password</label>
@@ -28,7 +29,7 @@
       <input
         type="password"
         class="form-control"
-        id="repeatPassword"
+        #repeatPassword
         placeholder="Repeat Password"
       />
       <label class="form-label" for="floatingPassword">Repeat Password</label>
@@ -36,7 +37,7 @@
     <button
       class="w-100 btn neon_filled"
       type="button"
-      onclick="registerUser()"
+      (click)="registerUser()"
     >
       Sign in
     </button>

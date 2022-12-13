@@ -2,7 +2,7 @@ import { DialogData, ScoreTable } from './../dialog/dialogData';
 import { DialogComponent } from './../dialog/dialog.component';
 import { SibligsService } from '../services/siblingsComponentService';
 
-import { Component, ViewChild, ElementRef, OnInit, AfterViewInit, HostListener, Renderer2, RendererFactory2, Injectable } from '@angular/core';
+import { Component, ViewChild, ElementRef, OnInit, AfterViewInit, HostListener, Renderer2 } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
@@ -114,13 +114,14 @@ export class GameComponent implements OnInit, AfterViewInit {
   }
 
   shot() {
-    this.bullet = document.createElement("div");
-    this.bullet.classList.add("bullets");
-    this.bullet.style.left = this.ship.nativeElement.getBoundingClientRect().left + this.SHIP_WIDTH / 3 + "px";
-    this.bullet.style.bottom = this.ship.nativeElement.getBoundingClientRect().bottom - this.BOARD_HEIGHT + this.SHIP_HEIGHT + "px";
-    this.board.nativeElement.appendChild(this.bullet);
+    this.bullet = this.renderer.createElement('div');
+    this.renderer.addClass(this.bullet, "bullets");
 
-    var maxBottom = parseInt(window.getComputedStyle(this.bullet).getPropertyValue("bottom")) + this.BOARD_HEIGHT - 80;
+    this.bullet!.style.left = this.ship.nativeElement.getBoundingClientRect().left + this.SHIP_WIDTH / 3 + "px";
+    this.bullet!.style.bottom = this.ship.nativeElement.getBoundingClientRect().bottom - this.BOARD_HEIGHT + this.SHIP_HEIGHT + "px";
+    this.renderer.appendChild(this.board.nativeElement, this.bullet);
+
+    var maxBottom = parseInt(window.getComputedStyle(this.bullet!).getPropertyValue("bottom")) + this.BOARD_HEIGHT - 80;
     var movebullet = setInterval(() => {
       if (!this.isRuning) return;
       var enemies = document.getElementsByClassName("enemies");
@@ -197,8 +198,8 @@ export class GameComponent implements OnInit, AfterViewInit {
   }
 
   generateEnemy() {
-    var rock = document.createElement("div");
-    rock.classList.add("enemies");
+    var rock = this.renderer.createElement('div');
+    this.renderer.addClass(rock, "enemies")
     var maxLeft = this.BOARD_LEFT + 5;
     var maxRigh = this.BOARD_RIGHT - this.ENEMY_WIDTH - 5;
     var maxTop = this.BOARD_BOTTOM - this.BOARD_TOP + this.ENEMY_HEIGHT + 5;
@@ -206,7 +207,7 @@ export class GameComponent implements OnInit, AfterViewInit {
 
     rock.style.left = Math.floor(Math.random() * (maxRigh - maxLeft + 1)) + maxLeft + "px";
     rock.style.bottom = Math.floor(Math.random() * (maxTop - maxBottom + 1)) + maxBottom + "px";
-    this.board.nativeElement.appendChild(rock);
+    this.renderer.appendChild(this.board.nativeElement, rock);
   }
 
   showErrorDialog() {

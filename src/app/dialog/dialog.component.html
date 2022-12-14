@@ -2,6 +2,7 @@
   <h1 mat-dialog-title>Error</h1>
   <div mat-dialog-content>
     <div
+      #message
       style="
         display: flex;
         flex-direction: column;
@@ -10,7 +11,61 @@
         padding: 1rem;
       "
     >
-      <p>{{ data.message }}</p>
+      <p>{{ messageText }}</p>
+    </div>
+    <div #table>
+      <table
+        mat-table
+        [dataSource]="dataSource"
+        class="text-center"
+        style="width: 50%"
+      >
+        <ng-container matColumnDef="username" class="text-center">
+          <th mat-header-cell *matHeaderCellDef>Username</th>
+          <td mat-cell *matCellDef="let element">
+            {{ element.username }}
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="punctuation" class="text-center">
+          <th mat-header-cell *matHeaderCellDef>Punct.</th>
+          <td mat-cell *matCellDef="let element">
+            {{ element.punctuation }}
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="ufos" class="text-center">
+          <th mat-header-cell *matHeaderCellDef>Nº UFOs</th>
+          <td mat-cell *matCellDef="let element">
+            {{ element.ufos }}
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="disposedTime" class="text-center">
+          <th mat-header-cell *matHeaderCellDef>Disposed Time</th>
+          <td mat-cell *matCellDef="let element">
+            {{ element.disposedTime }}
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="recordDate" class="text-center">
+          <th mat-header-cell *matHeaderCellDef>Date</th>
+          <td mat-cell *matCellDef="let element" c>
+            {{ element.recordDateFormat }}
+          </td>
+        </ng-container>
+
+        <tr
+          mat-header-row
+          *matHeaderRowDef="displayedColumns"
+          class="text-center"
+        ></tr>
+        <tr
+          mat-row
+          *matRowDef="let row; columns: displayedColumns"
+          class="text-center"
+        ></tr>
+      </table>
     </div>
   </div>
   <div mat-dialog-actions>

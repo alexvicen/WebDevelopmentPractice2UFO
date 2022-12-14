@@ -27,6 +27,7 @@ export class LoginComponent {
       .subscribe({
         error: (error) => { this.loginTreatment(error) },
         next: (next) => {
+          console.log("Token: " + next)
           localStorage["authorization"] = next;
           localStorage["userName"] = this.userName.nativeElement.value;
           this.siblingService.setData(true);

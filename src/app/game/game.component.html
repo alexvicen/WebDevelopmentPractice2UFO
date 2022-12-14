@@ -3,13 +3,12 @@
   <div class="col-3">
     <a #playButton (click)="playPauseGame()" class="playButton btn neon_border">
       <div #playText>Play</div>
-      <div #time class="points">0</div>
+      <div #time class="points">&#9658;</div>
     </a>
-    <p></p>
-    <div class="playButton container_neon_border">
+    <a class="playButton btn neon_text">
       <div>Score</div>
       <div #points class="points">0</div>
-    </div>
+    </a>
   </div>
   <div class="col-8">
     <div #board id="board">

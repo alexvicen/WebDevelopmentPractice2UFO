@@ -34,6 +34,7 @@ export class HeaderComponent implements OnInit, AfterViewInit {
     window.localStorage.removeItem("authorization");
     window.localStorage.removeItem("ufoPreference");
     window.localStorage.removeItem("timePreference");
+    this.siblingsService.setData(true);
     this.isLogged()
   }
 

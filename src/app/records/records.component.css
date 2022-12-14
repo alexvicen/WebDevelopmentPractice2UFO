@@ -10,3 +10,22 @@
 table {
   width: 50%;
 }
+
+.title {
+  float: center;
+  font-size: 3em;
+}
+
+div.scroll {
+  height: 90%;
+  padding: 16pt;
+  overflow: auto;
+}
+
+.view_collapsed {
+  visibility: collapse;
+}
+
+.row {
+  margin-top: 32pt;
+}

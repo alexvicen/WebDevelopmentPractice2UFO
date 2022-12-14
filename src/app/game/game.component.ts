@@ -3,7 +3,7 @@ import { DialogComponent } from './../dialog/dialog.component';
 import { SibligsService } from '../services/siblingsComponentService';
 
 import { Component, ViewChild, ElementRef, OnInit, AfterViewInit, HostListener, Renderer2 } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 
@@ -137,8 +137,6 @@ export class GameComponent implements OnInit, AfterViewInit {
             bulletBound.top < enemyBound.bottom
           ) {
             this.addScore();
-            enemy.parentElement!.removeChild(enemy);
-            if (enemies.length < 1) this.createBoard();
             clearInterval(movebullet);
             document.querySelectorAll(".bullets").forEach(el => el.remove());
             this.bullet = undefined;
@@ -195,6 +193,7 @@ export class GameComponent implements OnInit, AfterViewInit {
     for (var i = 0; i < this.ufoPreference; i++) {
       this.generateEnemy();
     }
+    this.moveEnemies(true, 500)
   }
 
   generateEnemy() {
@@ -210,9 +209,42 @@ export class GameComponent implements OnInit, AfterViewInit {
     this.renderer.appendChild(this.board.nativeElement, rock);
   }
 
+  moveEnemies(toRight: boolean, interval: number) {
+    var moveEnemies = setInterval(() => {
+      if (!this.isRuning) return
+      var needClear = false
+      document.querySelectorAll<any>(".enemies").forEach(el => {
+        var left = parseInt(window.getComputedStyle(el).getPropertyValue("left"));
+        if (toRight) {
+          if (left > this.BOARD_RIGHT - this.ENEMY_WIDTH - 5) {
+            needClear = true
+            return
+          }
+          el.style.left = left + this.SHIP_MOVEMENT + "px";
+        } else {
+          if (left <= this.BOARD_LEFT + 5) {
+            needClear = true
+            return
+          }
+          el.style.left = left - this.SHIP_MOVEMENT + "px";
+        }
+      });
+      if (needClear) {
+        clearInterval(moveEnemies)
+        let auxInterval = interval <= 150 ? interval : interval - 50
+        this.moveEnemies(!toRight, auxInterval)
+      }
+    }, interval)
+  }
+
   showErrorDialog() {
     const dialog = this.dialog.open(DialogComponent, { data: this.generateDialogString() })
     dialog.afterClosed().subscribe(art => {
+      console.log("RESULT: " + art)
+      if (art == true && this.authorization != undefined) {
+        this.saveRecords()
+        return
+      }
       location.reload();
     });
   }
@@ -226,4 +258,45 @@ export class GameComponent implements OnInit, AfterViewInit {
     var ufosSubstract = (this.ufoPreference - 1) * 50;
     return this.score / minutesDivider - ufosSubstract;
   }
+
+  saveRecords() {
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json; charset=utf-8', 'Authorization': this.authorization });
+    this.http.post<any>("http://wd.etsisi.upm.es:10000/records",
+      {
+        punctuation: this.score,
+        ufos: this.ufoPreference,
+        disposedTime: this.timePreference
+      },
+      {
+        headers: headers,
+      },)
+      .subscribe({
+        error: (error) => { this.saveRecordsTreatment(error) },
+        next: (next) => {
+          location.reload();
+        },
+      });
+  }
+
+  saveRecordsTreatment(error: any) {
+    switch (error.status) {
+      case 201:
+        location.reload();
+        break;
+      case 400:
+        alert("missing parameter")
+        break
+      case 401:
+        alert("no valid token")
+        break
+      case 500:
+        alert("internal server error")
+        break
+      default:
+        alert("ERROR SAVING RECORD")
+        location.reload();
+        break;
+    }
+  }
+
 }

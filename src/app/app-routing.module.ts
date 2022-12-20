@@ -1,3 +1,4 @@
+import { ChangePassComponent } from './change-pass/change-pass.component';
 import { RegisterComponent } from './register/register.component';
 import { RecordsComponent } from './records/records.component';
 import { PreferencesComponent } from './preferences/preferences.component';
@@ -14,7 +15,8 @@ const routes: Routes = [
   { path: 'game', component: GameComponent },
   { path: 'preferences', component: PreferencesComponent },
   { path: 'records', component: RecordsComponent },
-  { path: 'register', component: RegisterComponent }
+  { path: 'register', component: RegisterComponent },
+  { path: 'profile', component: ChangePassComponent }
 ];
 
 @NgModule({

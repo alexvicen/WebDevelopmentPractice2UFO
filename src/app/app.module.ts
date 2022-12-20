@@ -19,6 +19,7 @@ import { RecordsComponent } from './records/records.component';
 import { RegisterComponent } from './register/register.component';
 import { DialogComponent } from './dialog/dialog.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ChangePassComponent } from './change-pass/change-pass.component';
 
 @NgModule({
   declarations: [
@@ -31,6 +32,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     RecordsComponent,
     RegisterComponent,
     DialogComponent,
+    ChangePassComponent,
   ],
   imports: [
     BrowserModule,

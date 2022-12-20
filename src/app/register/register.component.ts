@@ -45,7 +45,7 @@ export class RegisterComponent {
       alert("The password can contain a maximum of 8 characters");
       return;
     }
-    console.log("pass: " + this.password.nativeElement.value + " - RepeatPass: " + this.repeatPassword.nativeElement.value + " - same: " + this.password.nativeElement.value == this.repeatPassword.nativeElement.value)
+
     if (this.password.nativeElement.value != this.repeatPassword.nativeElement.value) {
       alert("Passwords must match");
       return;

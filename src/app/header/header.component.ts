@@ -20,6 +20,7 @@ export class HeaderComponent implements OnInit, AfterViewInit {
   @ViewChild('register', { static: true }) register!: ElementRef;
   @ViewChild('login', { static: true }) login!: ElementRef;
   @ViewChild('logOut', { static: true }) logOut!: ElementRef;
+  @ViewChild('changePass', { static: true }) changePass!: ElementRef;
 
   ngOnInit(): void {
     this.siblingsService.currentData.subscribe(data => {
@@ -44,11 +45,13 @@ export class HeaderComponent implements OnInit, AfterViewInit {
       this.register.nativeElement.style.visibility = "hidden";
       this.login.nativeElement.style.visibility = "hidden";
       this.logOut.nativeElement.style.visibility = "visible";
+      this.changePass.nativeElement.style.visibility = "visible";
       return
     }
     this.register.nativeElement.style.visibility = "visible";
     this.login.nativeElement.style.visibility = "visible";
     this.logOut.nativeElement.style.visibility = "hidden";
+    this.changePass.nativeElement.style.visibility = "hidden";
   }
 
 }
